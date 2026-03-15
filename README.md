@@ -1,64 +1,233 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 📚 BiblioTEK – Application de Gestion de Bibliothèque
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Application web développée avec **Laravel** permettant de gérer les emprunts et retours de livres d’une bibliothèque.
 
-## About Laravel
+Projet réalisé dans le cadre du **BTS SIO – option SLAM** (Solutions Logicielles et Applications Métiers).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 🎯 Objectif du projet
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+L'objectif de cette application est de permettre la gestion simple d'une bibliothèque.
 
-## Learning Laravel
+L'application permet :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- consulter la liste des livres
+- emprunter un livre
+- retourner un livre
+- voir la disponibilité des livres
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Le projet utilise l’architecture **MVC du framework Laravel** et une base de données **MySQL**.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# 🛠 Technologies utilisées
 
-### Premium Partners
+- **PHP**
+- **Laravel**
+- **Blade (Template Engine)**
+- **MySQL**
+- **HTML / CSS**
+- **Git**
+- **GitHub**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+# 🏗 Architecture du projet
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Le projet utilise l’architecture **MVC (Model View Controller)**.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Routes → Controllers → Models → Views
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Structure principale :
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+app
+├── Models
+│ ├── Livre.php
+│ └── Emprunt.php
+│
+├── Http
+│ └── Controllers
+│ ├── LivreController.php
+│ └── EmpruntController.php
+│
+resources
+└── views
+├── accueil.blade.php
+├── livres.blade.php
+├── emprunt.blade.php
+├── retour.blade.php
+├── compte.blade.php
+└── template.blade.php
+
+routes
+└── web.php
+
+database
+└── migrations
+├── create_livres_table.php
+└── create_emprunts_table.php
+
+
+---
+
+# 📚 Fonctionnalités
+
+## 1️⃣ Accueil
+
+Page d’accueil présentant l’application.
+
+---
+
+## 2️⃣ Liste des livres
+
+Affichage de tous les livres de la bibliothèque.
+
+Informations affichées :
+
+- titre
+- auteur
+- disponibilité
+
+---
+
+## 3️⃣ Emprunter un livre
+
+Un utilisateur peut sélectionner un livre disponible et l’emprunter.
+
+Lors de l’emprunt :
+
+- un enregistrement est créé dans la table **emprunts**
+- le livre devient **indisponible**
+
+---
+
+## 4️⃣ Retourner un livre
+
+Un utilisateur peut retourner un livre emprunté.
+
+Lors du retour :
+
+- le livre redevient **disponible**
+
+---
+
+## 5️⃣ Page compte
+
+Page utilisateur simple affichant :
+
+- informations utilisateur
+- nombre de livres empruntés
+
+---
+
+# 🗄 Base de données
+
+L'application utilise **MySQL**.
+
+## Table : livres
+
+| Champ | Type |
+|------|------|
+| id | int |
+| titre | string |
+| auteur | string |
+| disponible | boolean |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+## Table : emprunts
+
+| Champ | Type |
+|------|------|
+| id | int |
+| user_id | int |
+| livre_id | int |
+| date_emprunt | date |
+| date_retour | date |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+# ⚙ Installation du projet
+
+## 1️⃣ Cloner le projet
+
+```bash
+git clone https://github.com/TON-USERNAME/bibliotek.git
+2️⃣ Installer les dépendances
+composer install
+3️⃣ Copier le fichier d'environnement
+cp .env.example .env
+4️⃣ Configurer la base de données
+
+Modifier le fichier .env
+
+DB_DATABASE=bibliotheque
+DB_USERNAME=root
+DB_PASSWORD=
+5️⃣ Générer la clé Laravel
+php artisan key:generate
+6️⃣ Lancer les migrations
+php artisan migrate
+7️⃣ Démarrer le serveur
+php artisan serve
+
+Application disponible sur :
+
+http://127.0.0.1:8000
+🔄 Routes principales
+Route	Fonction
+/	accueil
+/livres	liste des livres
+/emprunt	emprunter un livre
+/retour	retourner un livre
+/compte	profil utilisateur
+📌 Exemple de fonctionnement
+Emprunt d'un livre
+
+L'utilisateur choisit un livre disponible
+
+Un enregistrement est créé dans emprunts
+
+Le livre devient indisponible
+
+Retour d'un livre
+
+L'utilisateur sélectionne un livre emprunté
+
+Le livre redevient disponible
+
+🎓 Contexte pédagogique
+
+Ce projet a été réalisé dans le cadre du BTS SIO – option SLAM.
+
+Il permet de mettre en pratique :
+
+développement web avec Laravel
+
+architecture MVC
+
+gestion d’une base de données
+
+utilisation de Git et GitHub
+
+👨‍💻 Auteur
+
+Ashvin Mariyathas
+
+Étudiant en BTS SIO – SLAM
+
+Projet réalisé dans le cadre du module :
+
+Conception et Développement d’Applications
+
+📄 Licence
+
+Projet pédagogique réalisé dans le cadre du BTS SIO.
