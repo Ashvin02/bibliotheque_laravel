@@ -43,33 +43,31 @@ Routes → Controllers → Models → Views
 
 Structure principale :
 
-
-app
-├── Models
-│ ├── Livre.php
-│ └── Emprunt.php
+app/
+├── Models/
+│   ├── Livre.php
+│   └── Emprunt.php
 │
-├── Http
-│ └── Controllers
-│ ├── LivreController.php
-│ └── EmpruntController.php
+├── Http/
+│   └── Controllers/
+│       ├── LivreController.php
+│       └── EmpruntController.php
 │
-resources
-└── views
-├── accueil.blade.php
-├── livres.blade.php
-├── emprunt.blade.php
-├── retour.blade.php
-├── compte.blade.php
-└── template.blade.php
+resources/
+└── views/
+    ├── accueil.blade.php
+    ├── livres.blade.php
+    ├── emprunt.blade.php
+    ├── compte.blade.php
+    └── template.blade.php
 
-routes
+routes/
 └── web.php
 
-database
-└── migrations
-├── create_livres_table.php
-└── create_emprunts_table.php
+database/
+└── migrations/
+    ├── create_livres_table.php
+    └── create_emprunts_table.php
 
 
 ---
