@@ -35,10 +35,12 @@ Route::middleware('auth')->group(function () {
         $livres = Livre::where('disponible', true)->get();
         return view('emprunt', compact('livres'));
     })->name('emprunt');
+    Route::post('/emprunt', [App\Http\Controllers\EmpruntController::class, 'store'])->name('emprunt.store');
     Route::get('/retour', function () {
         $livres = Livre::all();
         return view('retour', compact('livres'));
     })->name('retour');
+    Route::post('/retour', [App\Http\Controllers\EmpruntController::class, 'storeRetour'])->name('retour.store');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
