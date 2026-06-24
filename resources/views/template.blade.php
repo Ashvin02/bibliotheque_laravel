@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <title>Bibliothèque - BTS SIO</title>
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<>
 <header>
 <div class="container">
 <h1>📚 Bibliothèque</h1>
@@ -36,5 +38,6 @@
 <footer>
 <p>Projet BTS SIO SLAM Ashvin Mariyathas - Laravel</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
