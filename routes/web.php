@@ -2,48 +2,54 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Livre;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CompteController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('accueil');
 });
 
 Route::get('/livres', function () {
-
     $livres = Livre::all();
-
     return view('livres', compact('livres'));
-
 })->name('livres');
 
-Route::get('/compte', function () {
-    return view('compte');
-})->name('compte');
-
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect('/');
 })->name('dashboard');
 
-Route::get('/emprunt', function () {
-     $livres = Livre::all();
-    return view('emprunt', compact('livres'));
-})->name('emprunt');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+});
 
-Route::get('/retour', function () {
-     $livres = Livre::all();
-    return view('retour', compact('livres'));
-})->name('retour');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
-Route::get('/template', function () {
-    return view('template');
-})->name('template');
+Route::middleware('auth')->group(function () {
+    Route::get('/compte', [CompteController::class, 'index'])->name('compte');
+    Route::get('/emprunt', function () {
+        $livres = Livre::where('disponible', true)->get();
+        return view('emprunt', compact('livres'));
+    })->name('emprunt');
+    Route::get('/retour', function () {
+        $livres = Livre::all();
+        return view('retour', compact('livres'));
+    })->name('retour');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::patch('/users/{user}/role', [AdminController::class, 'updateRole'])->name('users.role');
+    Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');
+    Route::get('/livres', [AdminController::class, 'livres'])->name('livres');
+    Route::post('/livres', [AdminController::class, 'storeLivre'])->name('livres.store');
+    Route::patch('/livres/{livre}', [AdminController::class, 'updateLivre'])->name('livres.update');
+    Route::delete('/livres/{livre}', [AdminController::class, 'destroyLivre'])->name('livres.destroy');
+    Route::get('/emprunts', [AdminController::class, 'emprunts'])->name('emprunts');
+    Route::patch('/emprunts/{emprunt}/retour', [AdminController::class, 'forcerRetour'])->name('emprunts.retour');
+});
