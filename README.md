@@ -5,7 +5,7 @@ Application web développée avec **Laravel** permettant de gérer les emprunts 
 Projet réalisé dans le cadre du **BTS SIO – option SLAM** (Solutions Logicielles et Applications Métiers).
 
 🌐 **Application en ligne** : [http://35.180.46.174](http://35.180.46.174)  
-📁 **Compte rendu** : [https://ashvinportfolio.dev/assets/projet-bibliotek.pdf](https://ashvinportfolio.dev/assets/projet-bibliotek.pdf)
+📁 **Compte rendu** : [https://ashvin-portfolio.dev/assets/projet-bibliotek.pdf](https://ashvinportfolio.dev/assets/projet-bibliotek.pdf)
 
 ---
 
@@ -109,10 +109,23 @@ L'application utilise **MySQL** avec 3 tables principales.
 |    role          |         |    date_retour   |         |    created_at    |
 |    created_at    |         |    created_at    |         |    updated_at    |
 +------------------+         +------------------+         +------------------+
-
+        |
+        | *
+        |
++------------------+
+|      roles       |
++------------------+
+| PK id            |
+|    name          |
+|    (admin/user)  |
++------------------+
       1                             *               *                1
   User ──────────────────────── Emprunt ───────────────────────── Livre
   (hasMany)                  (belongsTo)                        (hasMany)
+
+  Relations :
+User     ──< Emprunt >── Livre   (un user a plusieurs emprunts, un livre aussi)
+User     >── Role               (un user a un rôle)
 ```
 
 ### Relations
