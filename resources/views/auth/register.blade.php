@@ -1,81 +1,59 @@
-@extends('template')
+<x-guest-layout>
+    <x-auth-card>
+        <x-slot name="logo">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </x-slot>
 
-@section('content')
-<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;">
-    <div style="background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 420px;">
-        
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <span style="font-size: 2.5rem;">📚</span>
-            <h2 style="margin: 0.5rem 0 0; color: #1a1a2e; font-size: 1.6rem;">Créer un compte</h2>
-            <p style="color: #666; margin: 0.25rem 0 0; font-size: 0.9rem;">Rejoignez la bibliothèque</p>
-        </div>
-
-        @if($errors->any())
-            <div style="background:#f8d7da; color:#721c24; padding:0.75rem 1rem; border-radius:8px; margin-bottom:1rem;">
-                @foreach($errors->all() as $error)
-                    <p style="margin:0;">{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            <div style="margin-bottom: 1.25rem;">
-                <label style="display:block; margin-bottom:0.4rem; color:#333; font-weight:600; font-size:0.9rem;">
-                    👤 Nom complet
-                </label>
-                <input type="text" name="name" value="{{ old('name') }}" required autofocus
-                    style="width:100%; padding:0.75rem 1rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; box-sizing:border-box;"
-                    placeholder="Jean Dupont"
-                    onfocus="this.style.borderColor='#4a90e2'"
-                    onblur="this.style.borderColor='#e0e0e0'">
+
+            <!-- Name -->
+            <div>
+                <x-label for="name" :value="__('Name')" />
+
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
-            <div style="margin-bottom: 1.25rem;">
-                <label style="display:block; margin-bottom:0.4rem; color:#333; font-weight:600; font-size:0.9rem;">
-                    📧 Adresse email
-                </label>
-                <input type="email" name="email" value="{{ old('email') }}" required
-                    style="width:100%; padding:0.75rem 1rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; box-sizing:border-box;"
-                    placeholder="exemple@mail.fr"
-                    onfocus="this.style.borderColor='#4a90e2'"
-                    onblur="this.style.borderColor='#e0e0e0'">
+            <!-- Email Address -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('Email')" />
+
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            <div style="margin-bottom: 1.25rem;">
-                <label style="display:block; margin-bottom:0.4rem; color:#333; font-weight:600; font-size:0.9rem;">
-                    🔒 Mot de passe
-                </label>
-                <input type="password" name="password" required
-                    style="width:100%; padding:0.75rem 1rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; box-sizing:border-box;"
-                    placeholder="••••••••"
-                    onfocus="this.style.borderColor='#4a90e2'"
-                    onblur="this.style.borderColor='#e0e0e0'">
+            <!-- Password -->
+            <div class="mt-4">
+                <x-label for="password" :value="__('Password')" />
+
+                <x-input id="password" class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
             </div>
 
-            <div style="margin-bottom: 1.5rem;">
-                <label style="display:block; margin-bottom:0.4rem; color:#333; font-weight:600; font-size:0.9rem;">
-                    🔒 Confirmer le mot de passe
-                </label>
-                <input type="password" name="password_confirmation" required
-                    style="width:100%; padding:0.75rem 1rem; border:2px solid #e0e0e0; border-radius:8px; font-size:1rem; box-sizing:border-box;"
-                    placeholder="••••••••"
-                    onfocus="this.style.borderColor='#4a90e2'"
-                    onblur="this.style.borderColor='#e0e0e0'">
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                <x-input id="password_confirmation" class="block mt-1 w-full"
+                                type="password"
+                                name="password_confirmation" required />
             </div>
 
-            <button type="submit"
-                style="width:100%; padding:0.85rem; background: linear-gradient(135deg, #4a90e2, #357abd); color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer;"
-                onmouseover="this.style.opacity='0.9'"
-                onmouseout="this.style.opacity='1'">
-                Créer mon compte →
-            </button>
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
+
+                <x-button class="ml-4">
+                    {{ __('Register') }}
+                </x-button>
+            </div>
         </form>
-
-        <p style="text-align:center; margin-top:1.5rem; color:#666; font-size:0.9rem;">
-            Déjà un compte ? 
-            <a href="{{ route('login') }}" style="color:#4a90e2; font-weight:600; text-decoration:none;">Se connecter</a>
-        </p>
-    </div>
-</div>
-@endsection
+    </x-auth-card>
+</x-guest-layout>

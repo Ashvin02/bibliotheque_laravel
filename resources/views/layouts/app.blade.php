@@ -28,12 +28,6 @@
             <main>
                 {{ $slot }}
             </main>
-
-     @auth
-        @if(auth()->user()->isAdmin())
-            <a href="{{ route('admin.dashboard') }}" class="nav-link text-danger fw-bold">⚙️ Admin</a>
-        @endif
-    @endauth
         </div>
     </body>
 </html>
