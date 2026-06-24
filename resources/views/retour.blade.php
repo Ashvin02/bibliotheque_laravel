@@ -21,7 +21,7 @@
 
 </select>
 
-<button type="submit" class="btn">Retourner le livre</button>
+<button type="submit" class="btn btn-primary">Retourner le livre</button>
 
 </form>
 
