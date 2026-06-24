@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+<div style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem;">
     <div style="background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 420px;">
         
         <div style="text-align: center; margin-bottom: 2rem;">
