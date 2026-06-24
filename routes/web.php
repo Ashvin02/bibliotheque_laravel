@@ -55,3 +55,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/emprunts', [AdminController::class, 'emprunts'])->name('emprunts');
     Route::patch('/emprunts/{emprunt}/retour', [AdminController::class, 'forcerRetour'])->name('emprunts.retour');
 });
+
+require __DIR__.'/auth.php';
