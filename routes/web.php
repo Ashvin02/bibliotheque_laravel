@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LivreController;
-use App\Http\Controllers\EmpruntController;
 use App\Models\Livre;
 
 /*
@@ -20,22 +18,32 @@ Route::get('/', function () {
     return view('accueil');
 });
 
-Route::get('/livres', [LivreController::class, 'index']);
+Route::get('/livres', function () {
 
-Route::get('/emprunt', [EmpruntController::class, 'index']);
+    $livres = Livre::all();
 
-Route::post('/emprunt', [EmpruntController::class, 'store']);
+    return view('livres', compact('livres'));
 
-Route::get('/retour',  function () {
-
-    $livres = Livre::where('disponible', false)->get();
-
-    return view('retour', compact('livres'));
-
-});
-
-Route::post('/retour', [EmpruntController::class, 'storeRetour']);
+})->name('livres');
 
 Route::get('/compte', function () {
     return view('compte');
-});
+})->name('compte');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/emprunt', function () {
+     $livres = Livre::all();
+    return view('emprunt', compact('livres'));
+})->name('emprunt');
+
+Route::get('/retour', function () {
+     $livres = Livre::all();
+    return view('retour', compact('livres'));
+})->name('retour');
+
+Route::get('/template', function () {
+    return view('template');
+})->name('template');

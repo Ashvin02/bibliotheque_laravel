@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Livre extends Model
 {
-    protected $fillable = ['titre','auteur','disponible'];
+    use HasFactory;
+
+    protected $fillable = [
+        'titre',
+        'auteur',
+        'disponible'
+    ];
+
+    public function emprunts()
+    {
+        return $this->hasMany(Emprunt::class);
+    }
 }
