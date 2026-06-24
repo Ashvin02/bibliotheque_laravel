@@ -28,17 +28,17 @@ class UserSeeder extends Seeder
 
         // Utilisateurs normaux
         $users = [
-            ['name' => 'Jean Dupont',       'email' => 'jean@mail.fr'],
-            ['name' => 'Marie Curie',       'email' => 'marie@mail.fr'],
-            ['name' => 'Lucas Bernard',     'email' => 'lucas@mail.fr'],
-            ['name' => 'Emma Petit',        'email' => 'emma@mail.fr'],
-            ['name' => 'Noah Thomas',       'email' => 'noah@mail.fr'],
-            ['name' => 'Chloé Richard',     'email' => 'chloe@mail.fr'],
-            ['name' => 'Hugo Moreau',       'email' => 'hugo@mail.fr'],
-            ['name' => 'Inès Simon',        'email' => 'ines@mail.fr'],
-            ['name' => 'Théo Laurent',      'email' => 'theo@mail.fr'],
-            ['name' => 'Camille Lefebvre',  'email' => 'camille@mail.fr'],
-            ['name' => 'Utilisateur Test',  'email' => 'user@bibliotek.fr'],
+            ['name' => 'Jean Dupont',       'email' => 'jean@mail.fr', 'password' => Hash::make('jdupont'), 'role' => 'user'],
+            ['name' => 'Marie Curie',       'email' => 'marie@mail.fr', 'password' => Hash::make('mcurie'), 'role' => 'user'],
+            ['name' => 'Lucas Bernard',     'email' => 'lucas@mail.fr', 'password' => Hash::make('lbernard'), 'role' => 'user'],
+            ['name' => 'Emma Petit',        'email' => 'emma@mail.fr', 'password' => Hash::make('epetit'), 'role' => 'user'],
+            ['name' => 'Noah Thomas',       'email' => 'noah@mail.fr', 'password' => Hash::make('nthomas'), 'role' => 'user'],
+            ['name' => 'Chloé Richard',     'email' => 'chloe@mail.fr', 'password' => Hash::make('crichard'), 'role' => 'user'],
+            ['name' => 'Hugo Moreau',       'email' => 'hugo@mail.fr', 'password' => Hash::make('hmoreau'), 'role' => 'user'],
+            ['name' => 'Inès Simon',        'email' => 'ines@mail.fr', 'password' => Hash::make('isimon'), 'role' => 'user'],
+            ['name' => 'Théo Laurent',      'email' => 'theo@mail.fr', 'password' => Hash::make('tlaurent'), 'role' => 'user'],
+            ['name' => 'Camille Lefebvre',  'email' => 'camille@mail.fr', 'password' => Hash::make('clefebvre'), 'role' => 'user'],
+            ['name' => 'Utilisateur Test',  'email' => 'user@bibliotek.fr', 'password' => Hash::make('utest'), 'role' => 'user'],
         ];
 
         foreach ($users as $user) {
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
                 'name'     => $user['name'],
                 'email'    => $user['email'],
                 'password' => Hash::make('password'),
-                'role'     => 'user',
+                'role'     => $user['role'],
             ]);
         }
     }
