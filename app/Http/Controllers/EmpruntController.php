@@ -9,39 +9,46 @@ use App\Models\Emprunt;
 class EmpruntController extends Controller
 {
 
+// Affichage de la liste des livres disponibles
 public function index()
 {
-$livres = Livre::where('disponible', true)->get();
-return view('emprunt', compact('livres'));
+    $livres = Livre::where('disponible', true)
+                   ->orderBy('titre')
+                   ->paginate(15); // 15 livres par page
+
+    // Emprunts en cours de l'utilisateur connecté (pour info)
+    $empruntsEnCours = Emprunt::where('user_id', Auth::id())
+                               ->whereNull('date_retour')
+                               ->with('livre')
+                               ->get();
+
+    return view('emprunts.index', compact('livres', 'empruntsEnCours'));
 }
 
+// Emprunter un livre
 public function store(Request $request)
 {
-Emprunt::create([
-'user_id' => 1,
-'livre_id' => $request->livre_id,
-'date_emprunt' => now()
-]);
+    $request->validate([
+        'livre_id' => 'required|exists:livres,id',
+    ]);
 
-Livre::where('id', $request->livre_id)
-->update(['disponible'=>false]);
+    $livre = Livre::findOrFail($request->livre_id);
 
-return redirect('/livres');
+    // Vérifier que le livre est toujours disponible
+    if (!$livre->disponible) {
+        return back()->with('error', 'Ce livre n\'est plus disponible.');
+    }
+
+    // Créer l'emprunt
+    Emprunt::create([
+        'user_id'      => Auth::id(),
+        'livre_id'     => $livre->id,
+        'date_emprunt' => Carbon::today(),
+    ]);
+
+    // Marquer le livre comme indisponible
+    $livre->update(['disponible' => false]);
+
+    return back()->with('success', "\"$livre->titre\" emprunté avec succès.");
 }
-
-public function retour()
-{
-    $livres = Livre::where('disponible', false)->get();
-
-    return view('retour', compact('livres'));
-}
-
-public function storeRetour(Request $request)
-{
-    Livre::where('id', $request->livre_id)
-        ->update(['disponible' => true]);
-
-    return redirect('/livres');
-}
-
 }
